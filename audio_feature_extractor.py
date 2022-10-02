@@ -1,0 +1,75 @@
+from email.mime import audio
+import enum
+from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy
+import os
+import json
+import time
+
+#  calling spotify api keys from local drive
+api_path = f'{os.getenv("API")}\\spotify.json'
+
+with open(api_path) as api:
+    key = json.load(api)
+
+client_id = key["data102"]["client_id"]
+client_secret = key["data102"]["client_secret"]
+
+
+# configuring Spotify client credentials
+auth_manager = SpotifyClientCredentials(client_id=client_id,
+                                        client_secret=client_secret,
+                                        requests_timeout=10
+                                        )
+spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+
+#  reading in tracks.json 
+with open("tracks.json") as tracks:
+    tracks_list = json.load(tracks)
+
+#  get the URIs of all the songs in the tracks_list
+uri_list = []
+
+for i, track in enumerate(tracks_list):
+    uri = tracks_list[i]["uri"]
+    uri_list.append(uri)
+
+#  list of audio features for each track 
+audio_feature_list = []
+
+def audio_feat_extractor(uri) -> dict:
+    audio_feature_dict = {}
+    
+    #  retrieving data through the api 
+    track = spotify.audio_features(uri)[0]
+    
+    audio_features = ["uri",
+                       "danceability",
+                       "energy",
+                       "key",
+                       "loudness",
+                       "mode",
+                       "speechiness",
+                       "acousticness",
+                       "instrumentalness",
+                       "liveness",
+                       "valence",
+                       "tempo",
+                       "time_signature"]
+    
+    #  extract data feature by feature
+    for feature in audio_features:
+        audio_feature_dict[feature] = track[feature]
+    
+    return audio_feature_dict
+
+for i, uri in enumerate(uri_list):
+    audio_feature_list.append(audio_feat_extractor(uri))
+    print(f"Track {i}: {uri} is done")
+
+#  writing the results to a json file
+audio_features_json = json.dumps(audio_feature_list)
+
+with open("audio_features.json", "w") as tracks:
+    tracks.write(audio_features_json)
