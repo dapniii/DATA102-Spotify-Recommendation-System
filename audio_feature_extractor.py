@@ -1,5 +1,3 @@
-from email.mime import audio
-import enum
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import os
@@ -17,14 +15,13 @@ client_secret = key["data102"]["client_secret"]
 
 
 # configuring Spotify client credentials
-auth_manager = SpotifyClientCredentials(client_id=client_id,
-                                        client_secret=client_secret,
-                                        requests_timeout=10
-                                        )
+auth_manager = SpotifyClientCredentials(
+    client_id=client_id, client_secret=client_secret, requests_timeout=10
+)
 spotify = spotipy.Spotify(auth_manager=auth_manager)
 
 
-#  reading in tracks.json 
+#  reading in tracks.json
 with open("tracks.json") as tracks:
     tracks_list = json.load(tracks)
 
@@ -35,36 +32,41 @@ for i, track in enumerate(tracks_list):
     uri = tracks_list[i]["uri"]
     uri_list.append(uri)
 
-#  list of audio features for each track 
+#  list of audio features for each track
 audio_feature_list = []
+
 
 def audio_feat_extractor(uri) -> dict:
     audio_feature_dict = {}
-    
-    #  retrieving data through the api 
+
+    #  retrieving data through the api
     track = spotify.audio_features(uri)[0]
-    
-    audio_features = ["uri",
-                       "danceability",
-                       "energy",
-                       "key",
-                       "loudness",
-                       "mode",
-                       "speechiness",
-                       "acousticness",
-                       "instrumentalness",
-                       "liveness",
-                       "valence",
-                       "tempo",
-                       "time_signature"]
-    
+
+    audio_features = [
+        "uri",
+        "danceability",
+        "energy",
+        "key",
+        "loudness",
+        "mode",
+        "speechiness",
+        "acousticness",
+        "instrumentalness",
+        "liveness",
+        "valence",
+        "tempo",
+        "time_signature",
+    ]
+
     #  extract data feature by feature
     for feature in audio_features:
         audio_feature_dict[feature] = track[feature]
-    
+
     return audio_feature_dict
 
+
 for i, uri in enumerate(uri_list):
+    time.sleep(5)
     audio_feature_list.append(audio_feat_extractor(uri))
     print(f"Track {i}: {uri} is done")
 
