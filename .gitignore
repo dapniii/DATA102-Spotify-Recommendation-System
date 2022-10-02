@@ -1,2 +1,5 @@
 #  python env of Ruiz
 dataenv/
+
+#  cache from Spotify Web API
+.cache
