@@ -27,7 +27,7 @@ spotify = spotipy.Spotify(auth_manager=auth_manager)
 playlist_uri = "spotify:playlist:5S8SJdl1BDc0ugpkEvFsIL"
 
 #  list of extracted songs
-track_list = []
+tracks_list = []
 
 def extract_track(index) -> dict:
     """This extracts the essential features from each track from the playlist. 
@@ -80,7 +80,7 @@ while True:
     next = playlist["next"]
     
     for i, item in enumerate(items):
-        track_list.append(extract_track(i))
+        tracks_list.append(extract_track(i))
         print(f"Track {i + offset}: {items[i]['track']['name']} is done")
         
     #  this ends the loop
@@ -95,5 +95,7 @@ while True:
     time.sleep(5)
 
 #  writing the results to a json file
+tracks_json = json.dumps(tracks_list)
+
 with open("tracks.json", "w") as tracks:
-    tracks.write(track_list)
+    tracks.write(tracks_json)
