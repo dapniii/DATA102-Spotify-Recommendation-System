@@ -1,5 +1,4 @@
 from spotipy.oauth2 import SpotifyClientCredentials
-import pandas as pd
 import spotipy
 import os
 import json
