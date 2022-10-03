@@ -35,6 +35,15 @@ for i, track in enumerate(tracks_list):
 
 
 def audio_feat_extractor(index) -> dict:
+    """Extracts the audio features from each track.
+
+    Args:
+        index (int): index of the specific track from the list to 
+        be extracted from.
+
+    Returns:
+        dict: complete dictionary of extracted data from each track.
+    """
     audio_feature_dict = {}
     
     track_instance = extracted_af_list[index]
