@@ -101,5 +101,5 @@ while end != 10100:     #  TODO: improve loop condition so that it would be scal
 #  writing the results to a json file
 audio_features_json = json.dumps(audio_feature_list)
 
-with open("audio_features.json", "w") as tracks:
+with open("audio_features.json", "a") as tracks:
     tracks.write(audio_features_json)

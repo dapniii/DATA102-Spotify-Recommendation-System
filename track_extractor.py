@@ -96,5 +96,5 @@ while True:
 #  writing the results to a json file
 tracks_json = json.dumps(tracks_list)
 
-with open("tracks.json", "w") as tracks:
+with open("tracks.json", "a") as tracks:
     tracks.write(tracks_json)
