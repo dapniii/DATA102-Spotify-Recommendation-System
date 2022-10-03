@@ -1,3 +1,4 @@
+from email.mime import audio
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import os
@@ -32,16 +33,12 @@ for i, track in enumerate(tracks_list):
     uri = tracks_list[i]["uri"]
     uri_list.append(uri)
 
-#  list of audio features for each track
-audio_feature_list = []
 
-
-def audio_feat_extractor(uri) -> dict:
+def audio_feat_extractor(index) -> dict:
     audio_feature_dict = {}
-
-    #  retrieving data through the api
-    track = spotify.audio_features(uri)[0]
-
+    
+    track_instance = extracted_af_list[index]
+    
     audio_features = [
         "uri",
         "danceability",
@@ -60,16 +57,35 @@ def audio_feat_extractor(uri) -> dict:
 
     #  extract data feature by feature
     for feature in audio_features:
-        audio_feature_dict[feature] = track[feature]
+        audio_feature_dict[feature] = track_instance[feature]
 
     return audio_feature_dict
 
 
-for i, uri in enumerate(uri_list):
-    time.sleep(5)
-    audio_feature_list.append(audio_feat_extractor(uri))
-    print(f"Track {i}: {uri} is done")
+#  list of audio features for each track
+audio_feature_list = []
 
+end = 100
+start = 0
+
+while end != 10000:
+    
+    time.sleep(5)
+    
+    #  per 100 batches of uri
+    trunc_list = uri_list[start:end]
+
+    #  retrieving data through the api
+    extracted_af_list = spotify.audio_features(trunc_list)
+    
+    for i, instance in enumerate(extracted_af_list):
+        uri_ref = extracted_af_list[i]["uri"]  
+        audio_feature_list.append(audio_feat_extractor(i))
+        print(f"Track {i + start}: {uri_ref} is done")
+    
+    end += 100
+    start = end - 100
+    
 #  writing the results to a json file
 audio_features_json = json.dumps(audio_feature_list)
 
