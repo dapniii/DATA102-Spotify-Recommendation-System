@@ -1,4 +1,3 @@
-from email.mime import audio
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import os
@@ -77,7 +76,7 @@ audio_feature_list = []
 end = 100
 start = 0
 
-while end != 10100:     #  TODO: improve loop condition so that it would be scalable
+while True:
 
     time.sleep(5)
 
@@ -94,6 +93,9 @@ while end != 10100:     #  TODO: improve loop condition so that it would be scal
             print(f"Track {i + start}: {uri_ref} is done")
         except TypeError:
             print(f"Track {i + start} is unavailable")
+
+    if end == len(uri_list):
+        break
 
     end += 100
     start = end - 100
