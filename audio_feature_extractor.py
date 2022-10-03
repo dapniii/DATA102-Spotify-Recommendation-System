@@ -93,7 +93,6 @@ while end != 10100:     #  TODO: improve loop condition so that it would be scal
             audio_feature_list.append(audio_feat_extractor(i))
             print(f"Track {i + start}: {uri_ref} is done")
         except TypeError:
-            audio_feature_list.append(None)
             print(f"Track {i + start} is unavailable")
 
     end += 100
