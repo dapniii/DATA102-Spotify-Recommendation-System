@@ -88,13 +88,13 @@ while end != 10100:     #  TODO: improve loop condition so that it would be scal
     extracted_af_list = spotify.audio_features(trunc_list)
 
     for i, instance in enumerate(extracted_af_list):
-        uri_ref = extracted_af_list[i]["uri"]
         try:
+            uri_ref = extracted_af_list[i]["uri"]
             audio_feature_list.append(audio_feat_extractor(i))
             print(f"Track {i + start}: {uri_ref} is done")
         except TypeError:
             audio_feature_list.append(None)
-            print(f"Track {i + start}: {uri_ref} is unavailable")
+            print(f"Track {i + start} is unavailable")
 
     end += 100
     start = end - 100
