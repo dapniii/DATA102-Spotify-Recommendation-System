@@ -1,3 +1,4 @@
+from typing import Type
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import os
@@ -26,8 +27,9 @@ spotify = spotipy.Spotify(auth_manager=auth_manager)
 
 #  10k long playlists as default
 #  will add more playlist URIs
-playlists_uri = ["spotify:playlist:5S8SJdl1BDc0ugpkEvFsIL",
-                "spotify:playlist:6yPiKpy7evrwvZodByKvM9"
+playlists_uri = ["spotify:playlist:2ygMW3zpdYWORyXKM35iTc",
+                 "spotify:playlist:5S8SJdl1BDc0ugpkEvFsIL",
+                 "spotify:playlist:6yPiKpy7evrwvZodByKvM9"
                 ]
 
 playlists = spotify.user_playlists('spotify')
@@ -74,7 +76,8 @@ def extract_track(index) -> dict:
                          "release_date",
                          "duration",
                          "popularity",
-                         "uri"]
+                         "uri"
+                         ]
     
     song_features_values = [song_title,
                             artist_name,
@@ -107,8 +110,12 @@ for i, playlist_uri in enumerate(playlists_uri):
         next = playlist["next"]
         
         for i, item in enumerate(items):
-            tracks_list.append(extract_track(i))
-            print(f"Track {i + offset}: {items[i]['track']['name']} is done")
+            try:
+                test = items[i]['track']['name']
+                tracks_list.append(extract_track(i))
+                print(f"Track {i + offset}: {items[i]['track']['name']} is done")
+            except TypeError:
+                print(f"Track {i + offset} is unavailable")
             
         #  this ends the loop
         #  if there is no more next url then we've reached the end
