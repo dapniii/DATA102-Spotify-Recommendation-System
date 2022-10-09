@@ -22,16 +22,19 @@ spotify = spotipy.Spotify(auth_manager=auth_manager)
 
 
 #  reading in tracks.json
-with open("tracks.json") as tracks:
+with open("data\\tracks.json") as tracks:
     tracks_list = json.load(tracks)
 
 #  get the URIs of all the songs in the tracks_list
 uri_list = []
 
+print("Extracting track URIs from list")
+
 for i, track in enumerate(tracks_list):
     uri = tracks_list[i]["uri"]
     uri_list.append(uri)
 
+print(f"Extraction completed: {len(uri_list)} total tracks ")
 
 def audio_feat_extractor(index) -> dict:
     """Extracts the audio features from each track.
@@ -103,5 +106,5 @@ while True:
 #  writing the results to a json file
 audio_features_json = json.dumps(audio_feature_list)
 
-with open("audio_features.json", "a") as tracks:
+with open("data\\audio_features.json", "a") as tracks:
     tracks.write(audio_features_json)
