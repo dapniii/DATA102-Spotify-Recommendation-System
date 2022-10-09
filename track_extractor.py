@@ -32,19 +32,31 @@ playlists_uri = ["spotify:playlist:2ygMW3zpdYWORyXKM35iTc",
                  "spotify:playlist:6yPiKpy7evrwvZodByKvM9"
                 ]
 
-playlists = spotify.user_playlists('spotify')
+#  extracting playlists from Spotify accounts
+spotify_users = ["spotify",
+                 "spotifyphilippines",
+                 "spotifybrazilian",
+                 "spotifysessions",
+                 "spotifyasia",
+                 "spotifyusa"  
+              ]
 
-#  extracting playlists from Spotify
-print("Adding playlist URIs from Spotify")
+for user in spotify_users:
+    playlists = spotify.user_playlists(user)
 
-while playlists:
-    for playlist in playlists['items']:
-        playlists_uri.append(playlist['uri'])
-    if playlists['next']:
-        playlists = spotify.next(playlists)
-    else:
-        playlists = None
-        print(f"Extraction completed: {len(playlists_uri)} playlists")
+    print("Adding playlist URIs from Spotify")
+
+    while playlists:
+        for playlist in playlists['items']:
+            playlists_uri.append(playlist['uri'])
+        if playlists['next']:
+            playlists = spotify.next(playlists)
+        else:
+            playlists = None
+            print(f"Extraction completed: {len(playlists_uri)} playlists")
+            
+#  short break 
+time.sleep(15)
 
 #  list of extracted songs
 tracks_list = []
@@ -99,7 +111,7 @@ for i, playlist_uri in enumerate(playlists_uri):
     #  to get the title of the playlist
     playlist_name = spotify.playlist(playlist_id=playlist_uri, fields="name")["name"]
     
-    print(f"Start playlist #{i} of {len(playlist_uri)}: {playlist_name}")
+    print(f"Start playlist #{i} of {len(playlists_uri)}: {playlist_name}")
     
     #  go through all the pages of the playlist 
     offset = 0
@@ -130,7 +142,7 @@ for i, playlist_uri in enumerate(playlists_uri):
     
     print(f"End: {playlist_name}")
 
-print(f"Extraction process completed: {len(tracks_list)} total tracks")
+print(f"Extraction process completed: {len(playlists_uri)} total tracks")
 
 #  writing the results to a json file
 tracks_json = json.dumps(tracks_list)
