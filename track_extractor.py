@@ -32,7 +32,7 @@ playlists_uri = ["spotify:playlist:2ygMW3zpdYWORyXKM35iTc",
                  "spotify:playlist:6yPiKpy7evrwvZodByKvM9"
                 ]
 
-#  extracting playlists from Spotify accounts
+#  extracting playlists from selected Spotify accounts
 spotify_users = ["spotify",
                  "spotifyphilippines",
                  "spotifybrazilian",
@@ -41,10 +41,10 @@ spotify_users = ["spotify",
                  "spotifyusa"  
               ]
 
+print("Adding playlist URIs from Spotify")
+
 for user in spotify_users:
     playlists = spotify.user_playlists(user)
-
-    print("Adding playlist URIs from Spotify")
 
     while playlists:
         for playlist in playlists['items']:
@@ -53,7 +53,8 @@ for user in spotify_users:
             playlists = spotify.next(playlists)
         else:
             playlists = None
-            print(f"Extraction completed: {len(playlists_uri)} playlists")
+            
+print(f"Extraction completed: {len(playlists_uri)} playlists")
             
 #  short break 
 time.sleep(15)
@@ -142,7 +143,7 @@ for i, playlist_uri in enumerate(playlists_uri):
     
     print(f"End: {playlist_name}")
 
-print(f"Extraction process completed: {len(playlists_uri)} total tracks")
+print(f"Extraction process completed: {len(tracks_list)} total tracks")
 
 #  writing the results to a json file
 tracks_json = json.dumps(tracks_list)

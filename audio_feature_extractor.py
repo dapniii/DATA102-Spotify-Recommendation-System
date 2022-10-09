@@ -79,6 +79,8 @@ audio_feature_list = []
 end = 100
 start = 0
 
+print("Audio feature extraction process START")
+
 while True:
 
     time.sleep(5)
@@ -98,6 +100,7 @@ while True:
             print(f"Track {i + start} is unavailable")
 
     if end == len(uri_list):
+        print("Audio feature extraction process END")
         break
 
     end += 100
