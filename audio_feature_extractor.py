@@ -18,7 +18,7 @@ client_secret = key["data102"]["client_secret"]
 auth_manager = SpotifyClientCredentials(
     client_id=client_id, client_secret=client_secret, requests_timeout=10
 )
-spotify = spotipy.Spotify(auth_manager=auth_manager)
+spotify = spotipy.Spotify(auth_manager=auth_manager, requests_timeout=120)
 
 
 #  reading in tracks.json
@@ -35,6 +35,7 @@ for i, track in enumerate(tracks_list):
     uri_list.append(uri)
 
 print(f"Extraction completed: {len(uri_list)} total tracks ")
+
 
 def audio_feat_extractor(index) -> dict:
     """Extracts the audio features from each track.
@@ -83,8 +84,6 @@ print("Audio feature extraction process START")
 
 while True:
 
-    time.sleep(5)
-
     #  per 100 batches of uri
     trunc_list = uri_list[start:end]
 
@@ -99,7 +98,7 @@ while True:
         except TypeError:
             print(f"Track {i + start} is unavailable")
 
-    if end == len(uri_list):
+    if end >= len(uri_list):
         print("Audio feature extraction process END")
         break
 
