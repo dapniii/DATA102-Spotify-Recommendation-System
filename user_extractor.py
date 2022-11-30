@@ -20,12 +20,12 @@ scope = "user-top-read"
 auth_manager = SpotifyOAuth(client_id=client_id,
                             client_secret=client_secret,
                             redirect_uri="http://localhost:8888/callback",
+                            username="aexylian",
                             scope=scope,
-                            username="caranto.jillian",
                             requests_timeout=10
                             )
 
 spotify = spotipy.Spotify(auth_manager=auth_manager)
 
-user_top_tracks = spotify.current_user_top_tracks(limit=50, offset=0, time_range="medium_term")
-print(user_top_tracks["items"])
+user_top_tracks = spotify.current_user_top_tracks(limit=1, offset=0, time_range="short_term")["items"][0]
+print(user_top_tracks["name"])
