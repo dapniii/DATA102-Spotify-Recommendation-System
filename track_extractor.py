@@ -1,4 +1,3 @@
-from typing import Type
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import os

@@ -2,7 +2,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import os
 import json
-import time
 
 #  calling spotify api keys from local drive
 api_path = f'{os.getenv("API")}\\spotify.json'
