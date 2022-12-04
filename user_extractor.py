@@ -26,7 +26,7 @@ auth_manager = SpotifyOAuth(client_id=client_id,
 spotify = spotipy.Spotify(auth_manager=auth_manager)
 
 #  retrieving top 50 most played songs of user
-user_top_tracks = spotify.current_user_top_tracks(limit=50, offset=0, time_range="long_term")["items"]
+user_top_tracks = spotify.current_user_top_tracks(limit=50, offset=0, time_range="medium_term")["items"]
 
 #  list of tracks + features in dictionary form
 tracks_list = []
