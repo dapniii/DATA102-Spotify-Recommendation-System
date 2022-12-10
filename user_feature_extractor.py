@@ -21,7 +21,7 @@ spotify = spotipy.Spotify(auth_manager=auth_manager, requests_timeout=120)
 
 
 #  reading in tracks.json
-with open("data\\users\\aexylian_tracks.json") as tracks:
+with open("data\\users\\227whclz22iewgm7htfoxxfoa_tracks.json") as tracks:
     tracks_list = json.load(tracks)
 
 #  get the URIs of all the songs in the tracks_list
@@ -107,5 +107,5 @@ while True:
 #  writing the results to a json file
 audio_features_json = json.dumps(audio_feature_list)
 
-with open("data\\users\\aexylian_features.json", "a") as tracks:
+with open("data\\users\\227whclz22iewgm7htfoxxfoa_features.json", "a") as tracks:
     tracks.write(audio_features_json)
