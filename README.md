@@ -8,16 +8,16 @@ As commonly defined, Recommender Systerm is a subclass of information filtering 
 ## Order of Notebooks
 This repository contains the following:
 <br> **1. data**
-<br>Carries the raw dataset of the usuers. In total, there are three users used for the completion of the project.
+<br>This folder carries the raw datasets from Spotify curated playlists and the users' playlists in JSON format. In total, there are three users used for the completion of the project. 
 <br> **2. audio_feature_extractor**
-<br>This notebook assisted the extraction of the audio features that were used as factors for the project analyses.
+<br>This script assisted the extraction of the audio features from Spotify-curated playlists based on the URI that were used as factors for the project analyses.
 <br> **3. recommendation_system**
-<br>Contains the overall project. This is where you may view the comprehensive breakdown of the project with its introduction, results, interpretation, and insights & conclusion.
+<br>The main notebook that contains the overall project. This is where you may view the comprehensive breakdown of the project with its introduction, results, interpretation, and insights & conclusion.
 <br> **4. requirements**
-<br>
+<br> This contains a list of all the packages used in the project notebook along with its specific versions.
 <br> **5. track_extractor**
-<br>
+<br> This is a script used to extract the songs along with its basic details from Spotify-curated playlists.
 <br> **6. user_extractor**
-<br>
+<br> This is a script used to extract the songs in the users playlist and their basic details such as song title, artist name, etc.
 <br> **7. user_feature_extractor**
-<br>
+<br> The script used to extract the audio features in each users playlist based on the URI.
